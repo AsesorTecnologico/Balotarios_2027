@@ -500,29 +500,36 @@ let currentYear = null;
 let currentBank = null;
 let currentStage = null;
 
+// ===== SELECCIONAR AÑO =====
 function selectYear(year) {
   currentYear = year;
   currentBank = null;
   currentStage = null;
 
+  // Remover active de todos los años
   document.querySelectorAll('#year-group .btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`#year-group .btn[onclick="selectYear('${year}')"]`)?.classList.add('active');
+  // Agregar active al año seleccionado
+  const selectedBtn = document.querySelector(`#year-group .btn[onclick="selectYear('${year}')"]`);
+  if (selectedBtn) {
+    selectedBtn.classList.add('active');
+  }
 
   document.getElementById('bank-wrapper').style.display = 'block';
   document.getElementById('stage-wrapper').style.display = 'none';
   document.getElementById('main-card').style.display = 'none';
   
-  document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
-
   renderBankButtons();
 }
 
+// ===== RENDERIZAR BOTONES DE BALOTARIOS =====
 function renderBankButtons() {
   const bankGroup = document.getElementById('bank-group');
   bankGroup.innerHTML = '';
 
+  let banks = [];
+
   if (currentYear === '2026') {
-    const banks = [
+    banks = [
       { key: 'MENSUAL I', label: '📊 Mensual I', class: 'btn-bank' },
       { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' },
       { key: 'MENSUAL II', label: '📊 Mensual II', class: 'btn-bank' },
@@ -532,38 +539,45 @@ function renderBankButtons() {
       { key: 'MENSUAL IV', label: '📊 Mensual IV', class: 'btn-bank' },
       { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }
     ];
-
-    banks.forEach(bank => {
-      const btn = document.createElement('button');
-      btn.className = `btn ${bank.class}`;
-      btn.textContent = bank.label;
-      btn.onclick = () => selectBank(bank.key);
-      bankGroup.appendChild(btn);
-    });
   } else if (currentYear === '2027') {
-    const banks = [
+    banks = [
       { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' },
       { key: 'BIMESTRAL II', label: '📊 Bimestral II', class: 'btn-bimestral' },
       { key: 'BIMESTRAL III', label: '📊 Bimestral III', class: 'btn-bimestral' },
       { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }
     ];
+  }
 
-    banks.forEach(bank => {
-      const btn = document.createElement('button');
-      btn.className = `btn ${bank.class}`;
-      btn.textContent = bank.label;
-      btn.onclick = () => selectBank(bank.key);
-      bankGroup.appendChild(btn);
-    });
+  banks.forEach(bank => {
+    const btn = document.createElement('button');
+    btn.className = `btn ${bank.class}`;
+    btn.textContent = bank.label;
+    btn.onclick = () => selectBank(bank.key);
+    bankGroup.appendChild(btn);
+  });
+
+  // RESTAURAR EL BALOTARIO SELECCIONADO
+  if (currentBank) {
+    document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
+    const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${currentBank}')"]`);
+    if (selectedBtn) {
+      selectedBtn.classList.add('active');
+    }
   }
 }
 
+// ===== SELECCIONAR BALOTARIO =====
 function selectBank(bank) {
   currentBank = bank;
   currentStage = null;
 
+  // Remover active de todos los balotarios
   document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`#bank-group .btn[onclick="selectBank('${bank}')"]`)?.classList.add('active');
+  // Agregar active al balotario seleccionado
+  const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${bank}')"]`);
+  if (selectedBtn) {
+    selectedBtn.classList.add('active');
+  }
 
   document.getElementById('stage-wrapper').style.display = 'block';
   document.getElementById('main-card').style.display = 'none';
@@ -571,6 +585,7 @@ function selectBank(bank) {
   renderStages();
 }
 
+// ===== RENDERIZAR BOTONES DE ETAPAS =====
 function renderStages() {
   const stageGroup = document.getElementById('stage-group');
   stageGroup.innerHTML = '';
@@ -604,18 +619,34 @@ function renderStages() {
       stageGroup.appendChild(btn);
     });
   }
+
+  // RESTAURAR LA ETAPA SELECCIONADA
+  if (currentStage) {
+    document.querySelectorAll('#stage-group .stage-btn').forEach(b => b.classList.remove('active'));
+    const selectedBtn = document.querySelector(`#stage-group .stage-btn[onclick="selectStage('${currentStage}')"]`);
+    if (selectedBtn) {
+      selectedBtn.classList.add('active');
+    }
+  }
 }
 
+// ===== SELECCIONAR ETAPA =====
 function selectStage(stage) {
   currentStage = stage;
 
+  // Remover active de todas las etapas
   document.querySelectorAll('#stage-group .stage-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`#stage-group .stage-btn[onclick="selectStage('${stage}')"]`)?.classList.add('active');
+  // Agregar active a la etapa seleccionada
+  const selectedBtn = document.querySelector(`#stage-group .stage-btn[onclick="selectStage('${stage}')"]`);
+  if (selectedBtn) {
+    selectedBtn.classList.add('active');
+  }
 
   renderModule();
   document.getElementById('main-card').style.display = 'block';
 }
 
+// ===== RENDERIZAR MÓDULO (GRADOS/CURSOS) =====
 function renderModule() {
   const title = document.getElementById('table-title');
   const gradesGrid = document.getElementById('grades-grid');
@@ -646,9 +677,7 @@ function renderModule() {
     return;
   }
 
-  // ============================================================
-  // RENDERIZADO - ABRE EN NUEVA PESTAÑA
-  // ============================================================
+  // ===== RENDERIZAR SEGÚN EL AÑO =====
   if (currentYear === '2026') {
     const grados = ['1ero', '2do', '3ero', '4to', '5to'];
     
@@ -714,4 +743,171 @@ function renderModule() {
       gradesGrid.appendChild(card);
     });
   }
+}
+// ============================================================
+// ALERTA FLOTANTE (TOAST) PARA SELECCIÓN DE BALOTARIO
+// ============================================================
+
+// Función para mostrar la alerta flotante
+function mostrarAlerta(mensaje, tipo = 'info') {
+    // Eliminar alertas anteriores
+    const alertaExistente = document.querySelector('.toast-alerta');
+    if (alertaExistente) {
+        alertaExistente.remove();
+    }
+
+    // Crear el contenedor de la alerta
+    const alerta = document.createElement('div');
+    alerta.className = 'toast-alerta';
+    
+    // Configurar según el tipo
+    let icono = '✅';
+    let colorFondo = '#10b981';
+    let colorBorde = '#059669';
+    
+    if (tipo === 'warning') {
+        icono = '⚠️';
+        colorFondo = '#f59e0b';
+        colorBorde = '#d97706';
+    } else if (tipo === 'error') {
+        icono = '❌';
+        colorFondo = '#ef4444';
+        colorBorde = '#dc2626';
+    } else if (tipo === 'success') {
+        icono = '✅';
+        colorFondo = '#10b981';
+        colorBorde = '#059669';
+    } else if (tipo === 'info') {
+        icono = 'ℹ️';
+        colorFondo = '#3b82f6';
+        colorBorde = '#2563eb';
+    }
+
+    // Estilos inline para la alerta
+    alerta.style.cssText = `
+        position: fixed;
+        top: 30px;
+        right: 30px;
+        z-index: 9999;
+        background: ${colorFondo};
+        color: white;
+        padding: 18px 28px;
+        border-radius: 14px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        border-left: 6px solid ${colorBorde};
+        max-width: 480px;
+        min-width: 320px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        transform: translateX(120%);
+        opacity: 0;
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.4s ease;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    `;
+
+    // Contenido de la alerta
+    alerta.innerHTML = `
+        <span style="font-size: 1.8rem; flex-shrink: 0;">${icono}</span>
+        <div style="flex: 1;">
+            <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 2px;">¡BALOTARIO SELECCIONADO!</div>
+            <div style="font-weight: 400; font-size: 0.95rem; opacity: 0.95;">${mensaje}</div>
+        </div>
+        <button onclick="cerrarAlerta(this)" style="
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        ">✕</button>
+    `;
+
+    // Agregar al DOM
+    document.body.appendChild(alerta);
+
+    // Animar entrada después de un pequeño delay
+    setTimeout(() => {
+        alerta.style.transform = 'translateX(0)';
+        alerta.style.opacity = '1';
+    }, 100);
+
+    // Auto-cerrar después de 5 segundos
+    const timeoutId = setTimeout(() => {
+        cerrarAlerta(alerta);
+    }, 6000);
+
+    // Guardar el timeout para poder cancelarlo si el usuario hace clic
+    alerta.dataset.timeoutId = timeoutId;
+
+    // Cerrar al hacer clic en la alerta (excepto en el botón cerrar)
+    alerta.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+            cerrarAlerta(this);
+        }
+    });
+}
+
+// Función para cerrar la alerta con animación
+function cerrarAlerta(elemento) {
+    // Si se pasa un botón, buscar el contenedor padre
+    let alerta = elemento;
+    if (elemento.tagName === 'BUTTON') {
+        alerta = elemento.closest('.toast-alerta');
+    }
+    
+    if (!alerta) return;
+
+    // Cancelar el auto-cierre
+    if (alerta.dataset.timeoutId) {
+        clearTimeout(parseInt(alerta.dataset.timeoutId));
+    }
+
+    // Animar salida
+    alerta.style.transform = 'translateX(120%)';
+    alerta.style.opacity = '0';
+    
+    // Eliminar después de la animación
+    setTimeout(() => {
+        if (alerta.parentNode) {
+            alerta.remove();
+        }
+    }, 400);
+}
+
+// ===== MODIFICAR LA FUNCIÓN selectBank PARA MOSTRAR LA ALERTA =====
+// Reemplaza tu función selectBank existente con esta:
+
+function selectBank(bank) {
+    currentBank = bank;
+    currentStage = null;
+
+    // Remover active de todos los balotarios
+    document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
+    // Agregar active al balotario seleccionado
+    const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${bank}')"]`);
+    if (selectedBtn) {
+        selectedBtn.classList.add('active');
+    }
+
+    // ===== MOSTRAR ALERTA FLOTANTE =====
+    const mensaje = `Has seleccionado: <strong>${bank}</strong> para el año <strong>${currentYear}</strong>`;
+    mostrarAlerta(mensaje, 'success');
+
+    document.getElementById('stage-wrapper').style.display = 'block';
+    document.getElementById('main-card').style.display = 'none';
+    
+    renderStages();
 }
