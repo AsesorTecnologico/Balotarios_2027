@@ -48,7 +48,7 @@
       100% { background: #1a73e8; box-shadow: 0 4px 20px rgba(26,115,232,0.5); }
     }
 
-    /* ===== BOTÓN DESTACADO SUPERIOR ===== */
+    /* ===== BARRA SUPERIOR CON BOTONES DESTACADOS ===== */
     .top-bar {
       display: flex;
       justify-content: flex-end;
@@ -402,13 +402,13 @@
   <!-- ===== BARRA SUPERIOR CON BOTONES DESTACADOS ===== -->
   <div class="top-bar">
     <!-- BOTÓN PRINCIPAL DESTACADO -->
-    <a href="https://docs.google.com/spreadsheets/d/1eYcv_rcIG25gE4LhhJ9XeVlrcADHeoFKwcA071szyFQ/edit?gid=1275503696#gid=1275503696" target="_blank" class="btn-destacado">
-      🚀 IR AL DRIVE DE FORMULARIOS
+    <a href="" target="_blank" class="btn-destacado">
+      🚀 IR AL SISTEMA PRINCIPAL
     </a>
-    <!-- BOTÓN SECUNDARIO 
-    <a href="https://drive.google.com/drive/folders/1B__f5Ar-VNepiBObmzWWYGJhuchif2cg?usp=drive_link" target="_blank" class="btn-secundario">
+    <!-- BOTÓN SECUNDARIO -->
+    <a href="" target="_blank" class="btn-secundario">
       📁 FORMATOS
-    </a>-->
+    </a>
   </div>
 
   <header>
@@ -419,33 +419,24 @@
   <div class="selectors">
     <!-- AÑO -->
     <div>
-      <div class="btn-group-label">1. Seleccione el Año</div>
+      <div class="btn-group-label">1. SELECCIONE EL AÑO</div>
       <div class="btn-group" id="year-group">
         <button class="btn" onclick="selectYear('2026')">2026</button>
         <button class="btn" onclick="selectYear('2027')">2027</button>
       </div>
     </div>
 
-    <!-- BANCO / BALOTARIO -->
+    <!-- BALOTARIO (generado dinámicamente por JavaScript) -->
     <div id="bank-wrapper" style="display: none;">
-      <div class="btn-group-label">2. Seleccione el Balotario</div>
+      <div class="btn-group-label">2. SELECCIONE EL BALOTARIO</div>
       <div class="btn-group" id="bank-group">
-        <!-- MENSUALES -->
-        <button class="btn btn-bank" onclick="selectBank('MENSUAL I')">Mensual I</button>
-        <button class="btn btn-bank" onclick="selectBank('MENSUAL II')">Mensual II</button>
-        <button class="btn btn-bank" onclick="selectBank('MENSUAL III')">Mensual III</button>
-        <button class="btn btn-bank" onclick="selectBank('MENSUAL IV')">Mensual IV</button>
-        <!-- BIMESTRALES -->
-        <button class="btn btn-bimestral" onclick="selectBank('BIMESTRAL I')">Bimestral I</button>
-        <button class="btn btn-bimestral" onclick="selectBank('BIMESTRAL II')">Bimestral II</button>
-        <button class="btn btn-bimestral" onclick="selectBank('BIMESTRAL III')">Bimestral III</button>
-        <button class="btn btn-bimestral" onclick="selectBank('BIMESTRAL IV')">Bimestral IV</button>
+        <!-- Los botones se generan dinámicamente con JavaScript -->
       </div>
     </div>
 
     <!-- ETAPAS (solo para 2027) -->
     <div id="stage-wrapper" style="display: none;">
-      <div class="btn-group-label">3. Seleccione la Etapa</div>
+      <div class="btn-group-label">3. SELECCIONE LA ETAPA</div>
       <div class="stage-grid" id="stage-group"></div>
     </div>
   </div>
@@ -458,7 +449,7 @@
       </div>
     </div>
 
-    <!-- GRADOS Y ENLACES -->
+    <!-- GRADOS / CURSOS -->
     <div class="grade-links-grid" id="grades-grid"></div>
 
     <!-- VISOR DE DRIVE -->

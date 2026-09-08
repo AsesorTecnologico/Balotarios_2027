@@ -514,7 +514,6 @@ function selectYear(year) {
   
   document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
 
-  // Renderizar botones de bancos según el año seleccionado
   renderBankButtons();
 }
 
@@ -523,16 +522,15 @@ function renderBankButtons() {
   bankGroup.innerHTML = '';
 
   if (currentYear === '2026') {
-    // 2026: Mostrar MENSUALES + BIMESTRALES (8 balotarios)
     const banks = [
-      { key: 'MENSUAL I', label: 'Mensual I', class: 'btn-bank' },
-      { key: 'BIMESTRAL I', label: 'Bimestral I', class: 'btn-bimestral' },
-      { key: 'MENSUAL II', label: 'Mensual II', class: 'btn-bank' },
-      { key: 'BIMESTRAL II', label: 'Bimestral II', class: 'btn-bimestral' },
-      { key: 'MENSUAL III', label: 'Mensual III', class: 'btn-bank' },
-      { key: 'BIMESTRAL III', label: 'Bimestral III', class: 'btn-bimestral' },
-      { key: 'MENSUAL IV', label: 'Mensual IV', class: 'btn-bank' },
-      { key: 'BIMESTRAL IV', label: 'Bimestral IV', class: 'btn-bimestral' }
+      { key: 'MENSUAL I', label: '📊 Mensual I', class: 'btn-bank' },
+      { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' },
+      { key: 'MENSUAL II', label: '📊 Mensual II', class: 'btn-bank' },
+      { key: 'BIMESTRAL II', label: '📊 Bimestral II', class: 'btn-bimestral' },
+      { key: 'MENSUAL III', label: '📊 Mensual III', class: 'btn-bank' },
+      { key: 'BIMESTRAL III', label: '📊 Bimestral III', class: 'btn-bimestral' },
+      { key: 'MENSUAL IV', label: '📊 Mensual IV', class: 'btn-bank' },
+      { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }
     ];
 
     banks.forEach(bank => {
@@ -543,12 +541,11 @@ function renderBankButtons() {
       bankGroup.appendChild(btn);
     });
   } else if (currentYear === '2027') {
-    // 2027: Mostrar solo BIMESTRALES (4 balotarios)
     const banks = [
-      { key: 'BIMESTRAL I', label: 'Bimestral I', class: 'btn-bimestral' },
-      { key: 'BIMESTRAL II', label: 'Bimestral II', class: 'btn-bimestral' },
-      { key: 'BIMESTRAL III', label: 'Bimestral III', class: 'btn-bimestral' },
-      { key: 'BIMESTRAL IV', label: 'Bimestral IV', class: 'btn-bimestral' }
+      { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' },
+      { key: 'BIMESTRAL II', label: '📊 Bimestral II', class: 'btn-bimestral' },
+      { key: 'BIMESTRAL III', label: '📊 Bimestral III', class: 'btn-bimestral' },
+      { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }
     ];
 
     banks.forEach(bank => {
@@ -593,10 +590,10 @@ function renderStages() {
     
     const stageNames = {
       '1@__CORRECCIÓN DE DOCENTES (BORRADORES)': '📝 CORRECCIÓN DE DOCENTES (BORRADORES)',
-      '2@__PDF PARA LA PRIMERA CORRECCIÓN (PUBLICACIONES)': '📝 PDF PARA LA PRIMERA CORRECCIÓN (PUBLICACIONES)',
-      '3@__PRIMERA CORRECCIÓN DEL DOCENTE (PRIMER FILTRO)': '📝 PRIMERA CORRECCIÓN DEL DOCENTE (PRIMER FILTRO)',
-      '4@__PDF PARA LA SEGUNDA CORRECCIÓN (PUBLICACIONES)': '📝 PDF PARA LA SEGUNDA CORRECCIÓN (PUBLICACIONES)',
-      '5@__SEGUNDA CORRECCIÓN DEL DOCENTE (SEGUNDO FILTRO)': '📝 SEGUNDA CORRECCIÓN DEL DOCENTE (SEGUNDO FILTRO)'
+      '2@__PDF PARA LA PRIMERA CORRECCIÓN (PUBLICACIONES)': '📄 PDF 1ra CORRECCIÓN',
+      '3@__PRIMERA CORRECCIÓN DEL DOCENTE (PRIMER FILTRO)': '✅ 1ra CORRECCIÓN DOCENTE',
+      '4@__PDF PARA LA SEGUNDA CORRECCIÓN (PUBLICACIONES)': '📄 PDF 2da CORRECCIÓN',
+      '5@__SEGUNDA CORRECCIÓN DEL DOCENTE (SEGUNDO FILTRO)': '✅ 2da CORRECCIÓN DOCENTE'
     };
 
     stages.forEach(stage => {
@@ -622,10 +619,6 @@ function selectStage(stage) {
 function renderModule() {
   const title = document.getElementById('table-title');
   const gradesGrid = document.getElementById('grades-grid');
-  const driveViewer = document.getElementById('drive-viewer');
-  const driveIframe = document.getElementById('drive-iframe');
-
-  driveViewer.style.display = 'none';
 
   let data = null;
   let stageDisplay = '';
@@ -637,10 +630,10 @@ function renderModule() {
     data = data2027[currentBank]?.[currentStage] || null;
     const stageNames = {
       '1@__CORRECCIÓN DE DOCENTES (BORRADORES)': 'Borradores',
-      '2@__PDF PARA LA PRIMERA CORRECCIÓN (PUBLICACIONES)': 'PDF PARA LA PRIMERA CORRECCIÓN',
-      '3@__PRIMERA CORRECCIÓN DEL DOCENTE (PRIMER FILTRO)': 'PRIMERA CORRECCIÓN DEL DOCENTE',
-      '4@__PDF PARA LA SEGUNDA CORRECCIÓN (PUBLICACIONES)': 'PDF PARA LA SEGUNDA CORRECCIÓN',
-      '5@__SEGUNDA CORRECCIÓN DEL DOCENTE (SEGUNDO FILTRO)': 'SEGUNDA CORRECCIÓN DEL DOCENTE'
+      '2@__PDF PARA LA PRIMERA CORRECCIÓN (PUBLICACIONES)': 'PDF 1ra Corrección',
+      '3@__PRIMERA CORRECCIÓN DEL DOCENTE (PRIMER FILTRO)': '1ra Corrección Docente',
+      '4@__PDF PARA LA SEGUNDA CORRECCIÓN (PUBLICACIONES)': 'PDF 2da Corrección',
+      '5@__SEGUNDA CORRECCIÓN DEL DOCENTE (SEGUNDO FILTRO)': '2da Corrección Docente'
     };
     stageDisplay = `${stageNames[currentStage] || currentStage} - ${currentBank} ${currentYear}`;
   }
@@ -654,10 +647,9 @@ function renderModule() {
   }
 
   // ============================================================
-  // RENDERIZADO SEGÚN EL AÑO
+  // RENDERIZADO - ABRE EN NUEVA PESTAÑA
   // ============================================================
   if (currentYear === '2026') {
-    // 2026: mostrar GRADOS (1ero, 2do, 3ero, 4to, 5to)
     const grados = ['1ero', '2do', '3ero', '4to', '5to'];
     
     grados.forEach(grado => {
@@ -678,7 +670,7 @@ function renderModule() {
         link.textContent = '🔗 Abrir en Drive';
         link.onclick = (e) => {
           e.preventDefault();
-          openDriveViewer(url, `${grado} - ${stageDisplay}`);
+          window.open(url, '_blank');
         };
       } else {
         link.className += ' sin-enlace';
@@ -691,7 +683,6 @@ function renderModule() {
       gradesGrid.appendChild(card);
     });
   } else if (currentYear === '2027') {
-    // 2027: mostrar CURSOS (17 cursos)
     CURSOS.forEach(curso => {
       const url = data[curso] || null;
       
@@ -710,7 +701,7 @@ function renderModule() {
         link.textContent = '🔗 Abrir en Drive';
         link.onclick = (e) => {
           e.preventDefault();
-          openDriveViewer(url, `${curso} - ${stageDisplay}`);
+          window.open(url, '_blank');
         };
       } else {
         link.className += ' sin-enlace';
@@ -723,33 +714,4 @@ function renderModule() {
       gradesGrid.appendChild(card);
     });
   }
-}
-
-// ============================================================
-// VISOR DE DRIVE
-// ============================================================
-function openDriveViewer(url, title) {
-  const viewer = document.getElementById('drive-viewer');
-  const iframe = document.getElementById('drive-iframe');
-  const viewerTitle = document.getElementById('viewer-title');
-  
-  let embedUrl = url;
-  if (url.includes('folders')) {
-    const folderId = url.split('/folders/')[1]?.split('?')[0] || url.split('folders/')[1]?.split('?')[0];
-    if (folderId) {
-      embedUrl = `https://drive.google.com/embeddedfolderview?id=${folderId}#list`;
-    }
-  }
-  
-  iframe.src = embedUrl;
-  viewerTitle.textContent = `📂 ${title || 'Visor de Google Drive'}`;
-  viewer.style.display = 'block';
-  viewer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-function closeDriveViewer() {
-  const viewer = document.getElementById('drive-viewer');
-  const iframe = document.getElementById('drive-iframe');
-  viewer.style.display = 'none';
-  iframe.src = '';
 }
