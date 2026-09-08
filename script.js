@@ -541,10 +541,10 @@ function renderBankButtons() {
     ];
   } else if (currentYear === '2027') {
     banks = [
-      { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' },
-      { key: 'BIMESTRAL II', label: '📊 Bimestral II', class: 'btn-bimestral' },
+      { key: 'BIMESTRAL I', label: '📊 Bimestral I', class: 'btn-bimestral' }
+      /*{ key: 'BIMESTRAL II', label: '📊 Bimestral II', class: 'btn-bimestral' },
       { key: 'BIMESTRAL III', label: '📊 Bimestral III', class: 'btn-bimestral' },
-      { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }
+      { key: 'BIMESTRAL IV', label: '📊 Bimestral IV', class: 'btn-bimestral' }*/
     ];
   }
 
