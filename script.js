@@ -80,7 +80,6 @@ const data2026 = {
 // ESTRUCTURA DE DATOS PARA 2027 (SOLO BIMESTRALES - CON 17 CURSOS)
 // ============================================================
 const data2027 = {
-  {
   "BIMESTRAL I": {
     "1@__CORRECCIÓN DE DOCENTES (BORRADORES)": {
       "LENGUAJE": "https://drive.google.com/drive/folders/1bKTnn6xMjSWV9e8UtKHKRdueZuFFsNQj?usp=drive_link",
@@ -553,6 +552,7 @@ function renderBankButtons() {
     const btn = document.createElement('button');
     btn.className = `btn ${bank.class}`;
     btn.textContent = bank.label;
+    btn.dataset.bank = bank.key;
     btn.onclick = () => selectBank(bank.key);
     bankGroup.appendChild(btn);
   });
@@ -560,30 +560,11 @@ function renderBankButtons() {
   // RESTAURAR EL BALOTARIO SELECCIONADO
   if (currentBank) {
     document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
-    const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${currentBank}')"]`);
+    const selectedBtn = document.querySelector(`#bank-group .btn[data-bank="${CSS.escape(currentBank)}"]`);
     if (selectedBtn) {
       selectedBtn.classList.add('active');
     }
   }
-}
-
-// ===== SELECCIONAR BALOTARIO =====
-function selectBank(bank) {
-  currentBank = bank;
-  currentStage = null;
-
-  // Remover active de todos los balotarios
-  document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
-  // Agregar active al balotario seleccionado
-  const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${bank}')"]`);
-  if (selectedBtn) {
-    selectedBtn.classList.add('active');
-  }
-
-  document.getElementById('stage-wrapper').style.display = 'block';
-  document.getElementById('main-card').style.display = 'none';
-  
-  renderStages();
 }
 
 // ===== RENDERIZAR BOTONES DE ETAPAS =====
@@ -593,7 +574,7 @@ function renderStages() {
 
   if (currentYear === '2026') {
     stageGroup.innerHTML = `
-      <button class="stage-btn" onclick="selectStage('BORRADORES')">📝 PDF 2026</button>
+      <button class="stage-btn" data-stage="BORRADORES" onclick="selectStage('BORRADORES')">📝 PDF 2026</button>
     `;
   } else if (currentYear === '2027') {
     const stages = [
@@ -616,6 +597,7 @@ function renderStages() {
       const btn = document.createElement('button');
       btn.className = 'stage-btn';
       btn.innerHTML = stageNames[stage] || stage;
+      btn.dataset.stage = stage;
       btn.onclick = () => selectStage(stage);
       stageGroup.appendChild(btn);
     });
@@ -624,7 +606,7 @@ function renderStages() {
   // RESTAURAR LA ETAPA SELECCIONADA
   if (currentStage) {
     document.querySelectorAll('#stage-group .stage-btn').forEach(b => b.classList.remove('active'));
-    const selectedBtn = document.querySelector(`#stage-group .stage-btn[onclick="selectStage('${currentStage}')"]`);
+    const selectedBtn = document.querySelector(`#stage-group .stage-btn[data-stage="${CSS.escape(currentStage)}"]`);
     if (selectedBtn) {
       selectedBtn.classList.add('active');
     }
@@ -638,7 +620,7 @@ function selectStage(stage) {
   // Remover active de todas las etapas
   document.querySelectorAll('#stage-group .stage-btn').forEach(b => b.classList.remove('active'));
   // Agregar active a la etapa seleccionada
-  const selectedBtn = document.querySelector(`#stage-group .stage-btn[onclick="selectStage('${stage}')"]`);
+  const selectedBtn = document.querySelector(`#stage-group .stage-btn[data-stage="${CSS.escape(stage)}"]`);
   if (selectedBtn) {
     selectedBtn.classList.add('active');
   }
@@ -898,7 +880,7 @@ function selectBank(bank) {
     // Remover active de todos los balotarios
     document.querySelectorAll('#bank-group .btn').forEach(b => b.classList.remove('active'));
     // Agregar active al balotario seleccionado
-    const selectedBtn = document.querySelector(`#bank-group .btn[onclick="selectBank('${bank}')"]`);
+    const selectedBtn = document.querySelector(`#bank-group .btn[data-bank="${CSS.escape(bank)}"]`);
     if (selectedBtn) {
         selectedBtn.classList.add('active');
     }
